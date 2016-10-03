@@ -454,7 +454,7 @@ class XMLStream(object):
             'do_handshake_on_connect': False,
         })
 
-        if sys.version_info > (3):
+        if sys.version_info > (3,):
             if sys.version_info >= (3, 4):
                 # Good, create_default_context() is supported, which consists
                 # recommended security settings by default.
