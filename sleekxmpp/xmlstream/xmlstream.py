@@ -434,7 +434,7 @@ class XMLStream(object):
             "Using SSL/TLS version: %s",
             ssl.get_protocol_name(self.ssl_version).replace('PROTOCOL_', '', 1)
         )
-        if self.ssl_version == PROTOCOL_SSLv23:
+        if self.ssl_version == ssl.PROTOCOL_SSLv23:
             log.info(
                 "Note: SSLv23 doesn't mean SSLv2 and SSLv3, but means all "
                 "supported versions, actually TLSv1.0+, since SSLv2 and "
