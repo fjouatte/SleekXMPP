@@ -467,7 +467,7 @@ class XMLStream(object):
                 # XXX: certificate is not verified in most circumstances.
                 # FIXME: need to provide a new option that verifies against system CAs.
                 if cert_policy == ssl.CERT_NONE:
-                    ctx.verify_mode = CERT_NONE
+                    ctx.verify_mode = ssl.CERT_NONE
                     ctx.check_hostname = False
                 elif cert_policy == ssl.CERT_REQUIRED:
                     ctx.load_verify_locations(cafile=self.ca_certs)
