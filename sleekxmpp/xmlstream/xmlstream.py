@@ -467,8 +467,8 @@ class XMLStream(object):
                 # XXX: certificate is not verified in most circumstances.
                 # FIXME: need to provide a new option that verifies against system CAs.
                 if cert_policy == ssl.CERT_NONE:
-                    ctx.verify_mode = ssl.CERT_NONE
                     ctx.check_hostname = False
+                    ctx.verify_mode = ssl.CERT_NONE
                 elif cert_policy == ssl.CERT_REQUIRED:
                     ctx.load_verify_locations(cafile=self.ca_certs)
             else:
@@ -488,11 +488,11 @@ class XMLStream(object):
 
                 # Verify the certificate.
                 if cert_policy == ssl.CERT_NONE:
-                    ctx.verify_mode = ssl.CERT_NONE
                     ctx.check_hostname = False
+                    ctx.verify_mode = ssl.CERT_NONE
                 elif cert_policy == ssl.CERT_REQUIRED:
-                    ctx.verify_mode = ssl.CERT_REQUIRED
                     ctx.check_hostname = True
+                    ctx.verify_mode = ssl.CERT_REQUIRED
                     ctx.load_verify_locations(cafile=self.ca_certs)
         elif sys.version_info >= (2, 7, 9):
             # Good, create_default_context() is supported, do the same as Python 3.4.
@@ -503,8 +503,8 @@ class XMLStream(object):
                 ctx.set_ciphers(_CIPHERS_SSL)
             if cert_policy == ssl.CERT_NONE:
                 # XXX: certificate is not verified!
-                ctx.verify_mode = ssl.CERT_NONE
                 ctx.check_hostname = False
+                ctx.verify_mode = ssl.CERT_NONE
             elif cert_policy == ssl.CERT_REQUIRED:
                 ctx.load_verify_locations(cafile=self.ca_certs)
         else:
