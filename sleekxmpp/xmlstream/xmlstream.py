@@ -488,10 +488,10 @@ class XMLStream(object):
 
                 # Verify the certificate.
                 if cert_policy == ssl.CERT_NONE:
-                    ctx.verify_mode = CERT_NONE
+                    ctx.verify_mode = ssl.CERT_NONE
                     ctx.check_hostname = False
                 elif cert_policy == ssl.CERT_REQUIRED:
-                    ctx.verify_mode = CERT_REQUIRED
+                    ctx.verify_mode = ssl.CERT_REQUIRED
                     ctx.check_hostname = True
                     ctx.load_verify_locations(cafile=self.ca_certs)
         elif sys.version_info >= (2, 7, 9):
@@ -503,7 +503,7 @@ class XMLStream(object):
                 ctx.set_ciphers(_CIPHERS_SSL)
             if cert_policy == ssl.CERT_NONE:
                 # XXX: certificate is not verified!
-                ctx.verify_mode = CERT_NONE
+                ctx.verify_mode = ssl.CERT_NONE
                 ctx.check_hostname = False
             elif cert_policy == ssl.CERT_REQUIRED:
                 ctx.load_verify_locations(cafile=self.ca_certs)
