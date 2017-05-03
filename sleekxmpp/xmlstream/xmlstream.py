@@ -130,7 +130,7 @@ class XMLStream(object):
         #:
         #:         import ssl
         #:         xmpp.ssl_version = ssl.PROTOCOL_TLSv1
-        self.ssl_version = ssl.PROTOCOL_SSLv23
+        self.ssl_version = ssl.PROTOCOL_TLSv1
 
         #: The list of accepted ciphers, in OpenSSL Format.
         #: It might be useful to override it for improved security
