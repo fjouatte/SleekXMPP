@@ -126,10 +126,10 @@ class XMLStream(object):
         #:
         #:     Most XMPP servers support TLSv1 or newer, however, if you really have to
         #:     connect to systems with insecure SSLv3, you may set :attr:`ssl_version`
-        #:     as ``ssl.PROTOCOL_SSLv3``. Other values are ignored by current implementation.
+        #:     as ``ssl.PROTOCOL_TLSv1``. Other values are ignored by current implementation.
         #:
         #:         import ssl
-        #:         xmpp.ssl_version = ssl.PROTOCOL_SSLv3
+        #:         xmpp.ssl_version = ssl.PROTOCOL_TLSv1
         self.ssl_version = ssl.PROTOCOL_SSLv23
 
         #: The list of accepted ciphers, in OpenSSL Format.
@@ -459,7 +459,7 @@ class XMLStream(object):
                 # Good, create_default_context() is supported, which consists
                 # recommended security settings by default.
                 ctx = ssl.create_default_context()
-                if self.ssl_version == ssl.PROTOCOL_SSLv3:
+                if self.ssl_version == ssl.PROTOCOL_TLSv1:
                     # But if the user specifies insecure SSLv3, do a favor.
                     ctx.options &= ~ssl.OP_NO_SSLv3  # UNSET NO_SSLv3, or set SSLv3
                     ctx.set_ciphers(_CIPHERS_SSL)  # _CIPHERS_SSL is weaker
@@ -473,9 +473,9 @@ class XMLStream(object):
                     ctx.load_verify_locations(cafile=self.ca_certs)
             else:
                 # Oops, create_default_context() is not supported.
-                if self.ssl_version == ssl.PROTOCOL_SSLv3:
+                if self.ssl_version == ssl.PROTOCOL_TLSv1:
                     # First, if the user specifies insecure SSLv3, do a favor.
-                    ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv3)
+                    ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
                     ctx.set_ciphers(_CIPHERS_SSL)
                 else:
                     # Or, set the version to TLSv1 (later is not supported),
@@ -497,7 +497,7 @@ class XMLStream(object):
         elif sys.version_info >= (2, 7, 9):
             # Good, create_default_context() is supported, do the same as Python 3.4.
             ctx = ssl.create_default_context()
-            if self.ssl_version == ssl.PROTOCOL_SSLv3:
+            if self.ssl_version == ssl.PROTOCOL_TLSv1:
                 # If the user specifies insecure SSLv3, do a favor.
                 ctx.options &= ~ssl.OP_NO_SSLv3
                 ctx.set_ciphers(_CIPHERS_SSL)
@@ -508,8 +508,8 @@ class XMLStream(object):
             elif cert_policy == ssl.CERT_REQUIRED:
                 ctx.load_verify_locations(cafile=self.ca_certs)
         else:
-            if self.ssl_version == ssl.PROTOCOL_SSLv3:
-                ssl_args['ssl_version'] = ssl.PROTOCOL_SSLv3
+            if self.ssl_version == ssl.PROTOCOL_TLSv1:
+                ssl_args['ssl_version'] = ssl.PROTOCOL_TLSv1
             else:
                 ssl_args['ssl_version'] = ssl.PROTOCOL_TLSv1
             ctx = None
